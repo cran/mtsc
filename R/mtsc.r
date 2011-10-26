@@ -1,7 +1,7 @@
 mtsc = function (t, mts, fit=TRUE, standardise=TRUE)
 {	if (!is.matrix (mts) ) mts = as.matrix (mts)
 	if (standardise) mts = .mtsc.standardise (mts)
-	m = extend (ENVIRONMENT (), "mtsc", t, mts, clusters=NA, cp=NA,
+	m = extend (new.env (), "mtsc", t, mts, clusters=NA, cp=NA,
 		nr=nrow (mts), nc=ncol (mts) ) 
 	if (fit) .fit.mtsc (m)
 	m
@@ -69,10 +69,10 @@ mtsc = function (t, mts, fit=TRUE, standardise=TRUE)
 	extend (v, "mtsctree")
 
 .simplenode = function (a, b=a, mean=0, rss=0)
-	ENVIRONMENT (a, b, mean, rss)
+	implant (new.env (), a, b, mean, rss)
 
 .complexnode = function (v1, v2, a, b, mean=0, rss=0)
-	ENVIRONMENT (v1, v2, a, b, mean, rss)
+	implant (new.env (), v1, v2, a, b, mean, rss)
 
 .mtsc.prec = function (m, v1, v2)
 {	n1 = v1$b - v1$a + 1
@@ -99,6 +99,7 @@ mtsc = function (t, mts, fit=TRUE, standardise=TRUE)
 	else for (i in 1:length (xbar) ) y = y + sum ( (x [,i] - xbar [i])^2)
 	y
 }
+
 
 
 
